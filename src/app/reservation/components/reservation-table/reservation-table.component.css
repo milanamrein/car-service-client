@@ -1,0 +1,30 @@
+.calendar-table {
+    box-shadow: 0px 1px 3px #000;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+}
+
+.calendar-table > thead > tr > th, .unavailable-cell {
+    background-color: #ededed;
+}
+
+.calendar-table > thead > tr > th, .calendar-table > tbody > tr > td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.add-reservation {
+    color: #3c763d;  
+}
+
+.reserved-time {
+    color: #a94442;
+}
+
+.add-reservation-cell {
+    background-color: #dff0d8;
+}
+
+.reserved-cell {
+    background-color: #f2dede;
+}

@@ -1,0 +1,63 @@
+<div class="card"
+     [ngClass]="{
+       'border-info': !showAll,
+       'border-warning': showAll && !reservation.worksheet.id,
+       'border-success': showAll && reservation.worksheet.id
+     }">
+  <div class="card-header"
+      [ngClass]="{
+        'text-info': !showAll,
+        'text-warning': showAll && !reservation.worksheet.id,
+        'text-success': showAll && reservation.worksheet.id
+      }">
+    <mat-icon style="vertical-align: bottom">date_range</mat-icon> <b>Reservation details:</b>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <span class="title-span">Date of reservation:</span> 
+      <b>{{ reservation.time.getUTCMonth() + 1 }}/{{ reservation.time.getUTCDate() }}/{{ reservation.time.getUTCFullYear() }}</b>
+    </li>
+    <li class="list-group-item">
+      <span class="title-span">Time of reservation:</span> 
+      <b>
+        <span *ngIf="reservation.time.getHours() < 12">{{ reservation.time.getHours() }}:00 am</span>
+        <span *ngIf="reservation.time.getHours() == 12">{{ reservation.time.getHours() }}:00 pm</span>
+        <span *ngIf="reservation.time.getHours() > 12">{{ reservation.time.getHours() - 12 }}:00 pm</span>
+      </b>
+    </li>
+    <li class="list-group-item">
+      <span class="title-span">Mechanic:</span> 
+      <b>{{ reservation.mechanic.fullName }}</b>
+    </li>
+    <ng-container *ngIf="showAll">
+      <li class="list-group-item">
+        <span class="title-span">Type:</span> 
+        <b>{{ reservation.type.name }}</b>
+      </li>
+      <li class="list-group-item">
+        <span class="title-span">Worksheet created:</span> 
+        <mat-icon style="vertical-align: middle"
+          *ngIf="!reservation.worksheet.id; else worksheetCreated">clear</mat-icon>
+        <ng-template #worksheetCreated>
+          <mat-icon style="vertical-align: middle">check</mat-icon>
+        </ng-template>
+      </li>
+      <li class="list-group-item"
+          *ngIf="!reservation.worksheet.id; else seeWorksheet">
+        <div class="mr-auto text-center">
+          <button type="button" class="btn btn-danger btn-lg"
+            (click)="deleteReservation()">Delete reservation</button>
+        </div>
+      </li>
+      <ng-template  #seeWorksheet>
+        <li class="list-group-item">
+          <div class="mr-auto text-center">
+            <a [routerLink]="['/worksheet', reservation.worksheet.id]"
+              (click)="closeDialog()"
+              class="btn btn-primary btn-lg">See worksheet</a>
+          </div>
+        </li>
+      </ng-template>
+    </ng-container>          
+  </ul>
+</div>

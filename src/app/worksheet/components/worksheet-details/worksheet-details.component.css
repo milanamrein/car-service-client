@@ -1,0 +1,47 @@
+
+.worksheet-table {
+    width: 90%;
+    margin: auto;
+    box-shadow: 0px 0px 2px #000;
+}
+
+.worksheet-table-header, th {
+    padding: 10px;
+    background: #ededed;
+    font-weight: bold;    
+}
+
+.worksheet-table,
+.worksheet-table-header, 
+.materials-header,
+.material-list-item, 
+.comment,
+th {
+    border: 1px solid #000;
+}
+
+td {
+    padding: 5px;    
+}
+
+.worksheet-table-details-column {
+    padding: 5px 0px 5px 0px; 
+    border-right: 1px solid #000;  
+}
+
+.details-column-left-aligned {
+    padding-left: 25px;
+}
+
+.comment, .materials-header {
+    padding: 10px 0px 10px 20px;
+}
+
+.materials-header, .total-price {
+    font-size: 20px;
+}
+
+.total-price {
+    padding: 20px 30px 20px 0;
+    font-weight: bold;
+}

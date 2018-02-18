@@ -1,0 +1,149 @@
+<mat-card class="auth-form">
+  <mat-card-title class="mr-auto text-center">
+    <h1>Sign Up</h1>
+  </mat-card-title>
+  <hr>
+  <mat-card-content class="row">
+    
+    <form [formGroup]="form" (ngSubmit)="signUp()">
+
+      <!-- First name -->
+      <mat-form-field class="form-field">
+        <input matInput type="text" formControlName="firstName"
+          id="firstName" required placeholder="First name">
+        <mat-error *ngIf="FirstName.invalid">
+          The first name is invalid!</mat-error>
+        <mat-error *ngIf="FirstName.invalid && FirstName.errors.required">
+          The first name is required!</mat-error>
+        <mat-error *ngIf="FirstName.invalid && FirstName.errors.minlength">
+          First name must be at least {{ FirstName.errors.minlength.requiredLength }} characters long!
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Last name -->
+      <mat-form-field class="form-field">
+        <input matInput type="text" formControlName="lastName"
+          id="lastName" required placeholder="Last name">
+        <mat-error *ngIf="LastName.invalid">
+          The last name is invalid!</mat-error>
+        <mat-error *ngIf="LastName.invalid && LastName.errors.required">
+          The last name is required!</mat-error>
+        <mat-error *ngIf="LastName.invalid && LastName.errors.minlength">
+          Last name must be at least {{ LastName.errors.minlength.requiredLength }} characters long!
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Username -->
+      <mat-form-field class="form-field">
+        <input matInput type="text" formControlName="username"
+          required id="username" placeholder="Username">
+        <mat-progress-bar *ngIf="Username.pending" mode="indeterminate"></mat-progress-bar>          
+        <mat-error *ngIf="Username.invalid && Username.errors.required">
+          The username is required!</mat-error>
+        <mat-error *ngIf="Username.invalid && Username.errors.minlength">
+          Username must be at least {{ Username.errors.minlength.requiredLength }} characters long!
+        </mat-error>
+        <mat-error *ngIf="Username.hasError('shouldBeUnique')">Username already exists!</mat-error>
+      </mat-form-field>
+
+      <!-- Phone number -->
+      <mat-form-field class="form-field">
+        <span matPrefix>(+36) &nbsp;</span>
+        <input matInput type="text" formControlName="phoneNumber"
+          required id="phoneNumber" placeholder="Phone number"> 
+        <mat-hint>Example: 20/123-4567</mat-hint>
+        <mat-error *ngIf="PhoneNumber.invalid && PhoneNumber.errors.required">
+          The phone number is required!</mat-error>
+        <mat-error *ngIf="PhoneNumber.invalid">
+          Phone number is invalid!
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Country -->
+      <mat-form-field class="form-field">
+        <input matInput type="text" formControlName="country"
+          required id="country" placeholder="Country"> 
+        <mat-hint>Example: HU</mat-hint>
+        <mat-error *ngIf="Country.invalid && Country.errors.required">
+          The country is required!</mat-error>
+        <mat-error *ngIf="Country.invalid">
+          Country is invalid!
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Zip Code -->
+      <mat-form-field class="form-field">
+        <input matInput type="text" formControlName="zipCode"
+          required id="zipCode" placeholder="Zip Code">
+        <mat-hint>Example: WC2N 5DU or 1014</mat-hint>
+        <mat-error *ngIf="ZipCode.invalid && ZipCode.errors.required">
+          The Zip Code is required!</mat-error>
+        <mat-error *ngIf="ZipCode.invalid">
+          Zip Code is invalid!
+        </mat-error>
+      </mat-form-field>
+
+      <!-- City -->
+      <mat-form-field class="form-field">
+        <input matInput type="text" formControlName="city"
+          required id="city" placeholder="City">
+        <mat-error *ngIf="City.invalid && City.errors.required">
+          The city is required!</mat-error>
+        <mat-error *ngIf="City.invalid">
+          City is invalid!
+        </mat-error>
+        <mat-error *ngIf="City.invalid && City.errors.minlength">
+          City must be at least {{ City.errors.minlength.requiredLength }} characters long!
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Street -->
+      <mat-form-field class="form-field">
+        <input matInput type="text" formControlName="street"
+          required id="street" placeholder="Street">
+        <mat-hint>Example: 221B Baker Street</mat-hint>
+        <mat-error *ngIf="Street.invalid && Street.errors.required">
+          The street is required!</mat-error>
+        <mat-error *ngIf="Street.invalid">
+          Street is invalid!
+        </mat-error>
+        <mat-error *ngIf="Street.invalid && Street.errors.minlength">
+          Street must be at least {{ Street.errors.minlength.requiredLength }} characters long!
+        </mat-error>
+      </mat-form-field>
+
+      <div formGroupName="passwordGroup">
+        <!-- Password -->
+        <mat-form-field class="form-field">
+          <input matInput type="password" formControlName="password"
+            required id="password" placeholder="Password">
+          <mat-error *ngIf="Password.invalid && Password.errors.required">
+              The password is required!</mat-error>
+          <mat-error *ngIf="Password.invalid && Password.errors.minlength">
+              Password must be at least {{ Password.errors.minlength.requiredLength }} characters long!
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password again -->
+        <mat-form-field class="form-field">
+          <input matInput type="password" formControlName="confirmPassword"
+            [errorStateMatcher]="passwordErrorStateMatcher"
+            required id="confirmPassword"  placeholder="Password again">
+          <mat-error *ngIf="PasswordGroup.hasError('passwordsDoNotMatch')">
+            Passwords do not match!
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mr-auto text-center form-button">
+        <button 
+          type="submit" class="btn btn-primary btn-lg"
+          *ngIf="!isLoading"
+          [disabled]="form.untouched || form.invalid">Sign Up</button>
+      </div>
+
+    </form>
+    <!-- Progress bar -->
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>    
+  </mat-card-content>
+</mat-card>

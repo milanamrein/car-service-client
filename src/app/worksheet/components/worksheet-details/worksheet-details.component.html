@@ -1,0 +1,87 @@
+
+<mat-card>
+  <mat-card-title>
+    <h1>Worksheet details <mat-icon>description</mat-icon></h1>
+  </mat-card-title>
+  <hr>
+
+  <mat-card-content>
+    <!-- Progress bar -->
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+    <ng-container *ngIf="!isLoading">
+      <table class="worksheet-table">
+        <thead>
+          <th colspan="2">Car Service Details:</th>
+          <th colspan="2">Partner Details:</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2" 
+              class="worksheet-table-details-column details-column-left-aligned">
+              Car Service
+            </td>
+            <td colspan="2" 
+              class="worksheet-table-details-column details-column-left-aligned">
+              {{ worksheet.partner.fullName }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" 
+              class="worksheet-table-details-column details-column-left-aligned">
+              Car Service Address
+            </td>
+            <td colspan="2" 
+              class="worksheet-table-details-column details-column-left-aligned">
+              {{ worksheet.partner.address }}
+            </td>
+          </tr>
+          <tr>            
+            <td colspan="2" class="worksheet-table-header">Date of reservation:</td>
+            <td class="worksheet-table-header">Mechanic:</td>
+            <td class="worksheet-table-header">Reservation type:</td>
+          </tr>
+          <tr class="text-center">
+            <td colspan="2" class="worksheet-table-details-column">
+              {{ worksheet.reservation.time.toLocaleDateString() }}
+            </td>
+            <td class="worksheet-table-details-column">
+              {{ worksheet.mechanic.fullName }}
+            </td>
+            <td class="worksheet-table-details-column">
+              {{ worksheet.reservation.type.name }}
+            </td>
+          </tr>
+          <ng-container *ngIf="worksheet.reservation.comment">
+            <tr>
+              <th colspan="4">Comment:</th>            
+            </tr>
+            <tr>
+              <td colspan="4" class="comment">{{ worksheet.reservation.comment }}</td>
+            </tr>
+          </ng-container>
+          <tr>
+            <td colspan="4" class="materials-header">Materials and components:</td>
+          </tr>
+          <tr class="text-center">
+            <td class="worksheet-table-header">&nbsp;</td>
+            <td class="worksheet-table-header">Name</td>
+            <td class="worksheet-table-header">Quantity</td>
+            <td class="worksheet-table-header">Price</td>
+          </tr>
+          <tr  class="text-center" *ngFor="let material of worksheet.materials">
+            <td class="material-list-item">&nbsp;</td>
+            <td class="material-list-item">{{ material.name }}</td>
+            <td class="material-list-item">{{ material.quantity }}</td>
+            <td class="material-list-item">{{ material.price | currency:'USD':'symbol' }}</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="text-right total-price">
+              <u>Total price:</u> {{ TotalPrice | currency:'USD':'symbol' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

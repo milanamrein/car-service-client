@@ -1,0 +1,33 @@
+<nav class="navbar navbar-dark navbar-expand-sm fixed-top bg-dark">
+  <button [class]="togglerClass"
+    type="button" data-toggle="collapse" 
+    data-target="#navbarCollapse" aria-controls="navbarCollapse" 
+    [attr.aria-expanded]="isAriaExpanded" aria-label="Toggle navigation"
+    (click)="toggleNavbarIcon()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <ng-container *ngIf="!IsUserLoggedIn; else userLoggedIn">
+    <a routerLink="/login" class="navbar-brand">Car Service</a>
+
+    <div [class]="menuClass" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto"></ul>
+      <ul class="navbar-nav">
+        <li><a class="nav-link" routerLink="/login">Login</a></li>
+        <li><a class="nav-link" routerLink="/signup">Register</a></li>
+      </ul>
+    </div>
+  </ng-container>
+
+  <ng-template #userLoggedIn>
+    <a routerLink="/" class="navbar-brand">Car Service</a>
+
+    <div [class]="menuClass" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto"></ul>
+      <ul class="navbar-nav">
+        <li><a class="nav-link" routerLink="/reservations">My Reservations</a></li>
+        <li><a class="nav-link" style="cursor: pointer" (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </ng-template>
+</nav>

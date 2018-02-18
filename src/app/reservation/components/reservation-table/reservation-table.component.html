@@ -1,0 +1,69 @@
+<span style="font-weight:bold">
+  <span *ngIf="(currentHour < 12
+          || currentDate.localeCompare(minDate) !== 0)
+          && !IsWeekend && !IsOutOfDate"
+        style="color:#31708f">Reservations of {{ currentDate }}:</span>
+  <span *ngIf="currentHour >= 12 
+          && !currentDate.localeCompare(minDate)
+          && !IsWeekend || IsOutOfDate"
+        style="color:red">
+    You cannot make reservations on {{ currentDate }}!
+  </span>
+  <span *ngIf="IsWeekend"
+    style="color:red">
+    You cannot make reservations on weekends!
+  </span>
+</span>
+
+<table class="table table-bordered calendar-table">
+  <thead>
+    <tr>
+      <th class="text-center">Mechanics</th>
+      <th class="text-center" *ngFor="let time of table.times">{{ time }}h</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of table.rows">
+      <td>{{ row.mechanic.fullName }}</td>
+      <td *ngFor="let cell of row.cells"
+          [ngClass]="{
+            'add-reservation-cell': isAvailableCell(cell.time, cell.reservation),
+            'reserved-cell': cell.reservation,
+            'unavailable-cell': isUnavailableCell(cell.time, cell.reservation)
+          }">
+
+          <!-- Unavailable cell -->
+          <button mat-icon-button
+            *ngIf="isUnavailableCell(cell.time, cell.reservation)"> 
+            <mat-icon matTooltip="Unavailable"
+              matTooltipPosition="after">cancel</mat-icon> 
+          </button> 
+
+          <!-- Available cell -->
+          <button *ngIf="isAvailableCell(cell.time, cell.reservation)" 
+                  (click)="openAddReservationDialog(cell.time, row.mechanic)"
+                  mat-icon-button>
+            <mat-icon class="add-reservation">add_circle</mat-icon>
+          </button>
+
+          <!-- Reserved cell -->
+          <button mat-icon-button 
+            *ngIf="cell.reservation && cell.reservation.partner.id != userId">  
+            <mat-icon class="reserved-time"
+              matTooltip="Reserved"
+              matTooltipPosition="after">remove_circle</mat-icon>              
+          </button>  
+          <button mat-icon-button
+            *ngIf="cell.reservation && cell.reservation.partner.id == userId">
+            <mat-icon class="reserved-time"            
+              matTooltip="Click to see details"
+              matTooltipPosition="after"
+              (click)="openReservationDetailsDialog(cell.reservation.id)">
+              remove_circle
+            </mat-icon> 
+          </button>
+
+      </td>
+    </tr>            
+  </tbody>
+</table>

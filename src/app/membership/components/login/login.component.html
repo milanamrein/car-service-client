@@ -1,0 +1,41 @@
+<mat-card class="auth-form">
+  <mat-card-title class="mr-auto text-center">
+    <h1>Login</h1>
+  </mat-card-title>
+  <hr>
+  <mat-card-content class="row">
+    <form [formGroup]="form" (ngSubmit)="login()">  
+          
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Username"
+          type="text" formControlName="username" 
+          required id="username">
+        <mat-error 
+          *ngIf="form.get('username').hasError('required') 
+            && form.get('username').touched">
+          Username is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput type="password" formControlName="password"
+          required id="password" placeholder="Password">
+        <mat-error
+          *ngIf="form.get('password').hasError('required') 
+            && form.get('password').touched">
+          Password is required!
+        </mat-error>
+      </mat-form-field>
+
+      <div class="mr-auto text-center form-button">
+        <button [disabled]="form.untouched || form.invalid"
+          *ngIf="!isLoading" 
+          type="submit"
+          class="btn btn-primary btn-lg">Sign In</button>
+      </div>  
+
+    </form>
+    <!-- Progress bar -->
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  </mat-card-content>
+</mat-card>

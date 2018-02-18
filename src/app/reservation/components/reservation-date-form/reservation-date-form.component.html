@@ -1,0 +1,27 @@
+
+<form [formGroup]="form" (ngSubmit)="selectReservationDate(dateInput)"
+  style="margin-top: 15px">
+  <mat-form-field class="form-field">
+    <input #dateInput formControlName="date"
+      matInput
+      [min]="minDate" 
+      [max]="maxDate" 
+      [matDatepicker]="picker" 
+      [matDatepickerFilter]="weekendFilter"
+      (focus)="picker.open()"
+      placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" #picker></mat-datepicker>
+    <mat-error *ngIf="this.form.get('date').hasError('required')">Date is required!</mat-error>
+    <mat-error *ngIf="this.form.get('date').invalid">
+      Invalid date!
+    </mat-error>
+  </mat-form-field>
+
+  <div class="mr-auto text-center">
+    <button mat-raised-button color="primary" type="submit"    
+      [disabled]="this.form.get('date').invalid">
+      See result <mat-icon>forward</mat-icon>
+    </button>
+  </div>
+</form>

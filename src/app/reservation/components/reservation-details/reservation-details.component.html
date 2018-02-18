@@ -1,0 +1,23 @@
+
+<mat-toolbar color="primary" style="min-width: 320px">
+  <span>Reservation details</span>
+  <span style="flex: 1 1 auto"></span>
+  <button type="button" 
+    *ngIf="!isLoading"
+    mat-icon-button
+    (click)="dialogRef.close()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+<hr>
+<mat-dialog-content>
+  <app-reservation-card
+    [reservation]="reservation"
+    (on-reservation-deleted)="deleteReservation($event)"
+    (dialog-should-be-closed)="dialogRef.close()"
+    *ngIf="!isLoading"></app-reservation-card>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <!-- Progress bar -->
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>  
+</mat-dialog-actions>

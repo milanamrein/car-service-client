@@ -1,0 +1,59 @@
+
+<mat-card>
+  <mat-card-title>
+    <h1>My reservations <mat-icon>account_circle</mat-icon></h1>
+  </mat-card-title>
+  <hr>  
+
+  <mat-card-subtitle>
+    <div class="alert alert-info" role="alert">  
+      <mat-icon style="vertical-align: bottom">info</mat-icon>    
+      Here you can see and delete your active reservations.
+    </div>
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <!-- Personal information -->    
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <h3 class="card-header">Personal information</h3>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <b>Name:</b> {{ User.FullName }}
+            </li>
+            <li class="list-group-item">
+              <b>Username:</b> {{ User.Username }}
+            </li>
+            <li class="list-group-item">
+              <b>Address:</b> {{ User.Address }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Progress bar -->
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    
+    <!-- Reservations -->
+    <ng-container *ngIf="!isLoading">
+      <div class="row">
+        <p *ngIf="partnerReservations.length == 0; else reservationsList"
+          style="padding-left: 25px">
+          You haven't got any reservations yet...
+        </p>    
+        
+        <ng-template #reservationsList>
+          <div class="col-lg-4 mx-auto" *ngFor="let reservation of partnerReservations">
+            <app-reservation-card 
+              [reservation]="reservation"
+              (on-reservation-deleted)="deleteReservation($event)"></app-reservation-card>
+          </div>
+        </ng-template>
+      </div>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,62 @@
+
+<mat-toolbar color="primary">
+  <span>Make a reservation</span>
+  <span style="flex: 1 1 auto"></span>
+  <button type="button" 
+    *ngIf="!isLoading"
+    mat-icon-button
+    (click)="dialogRef.close()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+<hr>
+<mat-dialog-content>
+
+  <!-- Reservation details -->
+  <app-reservation-card
+    [reservation]="newReservation" 
+    [show-all]="false"></app-reservation-card>
+  <hr>  
+
+  <!-- Add reservation form -->
+  <form class="auth-form" 
+    [formGroup]="form" 
+    (ngSubmit)="addReservation()"
+    *ngIf="!isLoading">
+
+    <mat-form-field class="form-field">
+      <mat-select placeholder="Select a type"
+        formControlName="select" required>
+        <mat-option *ngFor="let type of reservationTypes"
+          [value]="type.id">{{ type.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('select').hasError('required')">
+        Type is required!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <textarea matInput placeholder="Leave a comment" formControlName="comment"
+        id="comment" style="resize: none" cols="30" rows="3"></textarea>
+      <mat-error *ngIf="form.get('comment').hasError('maxlength')">
+        The comment can be up to
+          {{ form.get('comment').errors.maxlength.requiredLength }}       
+        characters!
+      </mat-error>
+    </mat-form-field>
+
+    <div class="mr-auto text-center">
+      <button mat-raised-button color="primary" type="submit"
+        [disabled]="form.untouched || form.invalid">
+        Make reservation <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- Progress bar -->
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>  
+</mat-dialog-actions>
+    

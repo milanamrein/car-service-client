@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+/* Bootstrap */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+/* Import AlertifyJS */
+@import "~alertifyjs/build/css/alertify.min.css";
+@import "~alertifyjs/build/css/themes/bootstrap.css";
+
+$color-primary: #01579b;
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding: 70px 0 80px 0;
+    min-height: 100%;
+}
+
+nav.bg-dark {
+    background-color: $color-primary!important;
+}
+
+h1, h2 {
+    color: $color-primary;
+}
+
+button, button:focus {
+    outline: none;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-field {
+    width: 100%;
+    padding: 0 15px 20px 15px;
+}
+
+.form-button {
+    margin-top: 20px;
+}

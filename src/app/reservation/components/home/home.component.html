@@ -1,0 +1,39 @@
+
+<mat-card>
+  <mat-card-title>
+    <h1>Home <mat-icon>home</mat-icon></h1>
+  </mat-card-title>
+  <hr>
+
+  <!-- Progress bar -->
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+  <!-- Home page content -->
+  <ng-container *ngIf="!isLoading">
+    <mat-card-subtitle>
+      <div class="alert alert-info" role="alert">
+        <mat-icon style="vertical-align: bottom">info</mat-icon> 
+        Here you can make a reservation by choosing a date in the calendar, 
+        and then by picking a time in the table.
+      </div>
+    </mat-card-subtitle>
+  
+    <mat-card-content>
+      <div class="row">
+        <!-- Calendar -->
+        <div class="col-lg-3">
+          <app-reservation-date-form
+            (reservation-date)="getReservationsOn($event)"></app-reservation-date-form>
+        </div>
+        
+        <!-- Reservations -->
+        <div class="col-lg-9">
+          <app-reservation-table
+            [table]="table"
+            [current-date]="currentDate"         
+            (get-all-mechanics)="refreshMechanics($event)"></app-reservation-table>
+        </div>
+      </div>
+    </mat-card-content>
+  </ng-container>
+</mat-card>
