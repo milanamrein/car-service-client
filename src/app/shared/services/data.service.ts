@@ -1,15 +1,13 @@
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { PartnerDTO } from './../models/partner';
 import { ErrorService } from './error.service';
-import { Headers, RequestOptions } from '@angular/http';
-import { Injectable } from '@angular/core';
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 
 // Base service for HTTP requests to back-end
-@Injectable()
 export class DataService {
 
   constructor(

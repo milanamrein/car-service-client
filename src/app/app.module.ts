@@ -10,6 +10,10 @@ import { ReservationModule } from './reservation/reservation.module';
 import { SharedModule } from './shared/shared.module';
 import { WorksheetModule } from './worksheet/worksheet.module';
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
+
 @NgModule({
   declarations: [
     AppComponent    
@@ -23,9 +27,7 @@ import { WorksheetModule } from './worksheet/worksheet.module';
     WorksheetModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('token');
-        },
+        tokenGetter: tokenGetter,
         whitelistedDomains: [environment.url]
       }
     })

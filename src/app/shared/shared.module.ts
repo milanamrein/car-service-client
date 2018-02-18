@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -11,7 +10,6 @@ import { AppErrorHandler } from './../common/errors/app-error-handler';
 import { MatComponentsModule } from './../mat-components/mat-components.module';
 import { AlertService } from './services/alert.service';
 import { AuthGuard } from './services/auth-guard.service';
-import { DataService } from './services/data.service';
 import { ErrorService } from './services/error.service';
 import { MechanicService } from './services/mechanic.service';
 import { PartnerService } from './services/partner.service';
@@ -25,7 +23,6 @@ import { WorksheetService } from './services/worksheet.service';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    HttpModule,
     RouterModule,
     ReactiveFormsModule,
     MatComponentsModule   
@@ -33,7 +30,6 @@ import { WorksheetService } from './services/worksheet.service';
   providers: [
     AlertService,
     ErrorService,    
-    DataService,
     MechanicService,
     PartnerService,
     ReservationTypeService,
